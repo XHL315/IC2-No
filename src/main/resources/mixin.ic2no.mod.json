@@ -1,0 +1,10 @@
+{
+  "package": "superhelo.ic2no.mixins",
+  "minVersion": "0.8",
+  "refmap": "mixins.ic2no.refmap.json",
+  "mixins": [
+    "MixinEnergySlot",
+    "MixinEnergyRender",
+    "MixinTileEntityAssembly"
+  ]
+}

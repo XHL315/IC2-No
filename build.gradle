@@ -1,0 +1,110 @@
+buildscript {
+    repositories {
+        maven {
+            name = "forge"
+            url = "https://maven.minecraftforge.net/"
+        }
+
+        maven {
+            name = "sponge"
+            url = "https://repo.spongepowered.org/maven"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'org.spongepowered.mixin'
+
+version = "1.0"
+group = "superhelo.ic2no" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "IC2-No"
+
+sourceCompatibility = targetCompatibility = '1.8'
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+minecraft {
+    runDir = "run"
+    mappings = "snapshot_20171003"
+    version = "1.12.2-14.23.5.2847"
+
+    def args = [
+            "-Dmixin.hotSwap=true",
+            "-Dmixin.debug.export=true",
+            "-Dmixin.checks.interfaces=true"
+    ]
+
+    clientJvmArgs.addAll(args)
+    serverJvmArgs.addAll(args)
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name 'mixinbooter'
+        url 'https://maven.cleanroommc.com'
+    }
+
+    maven {
+        name 'sponge'
+        url 'https://repo.spongepowered.org/maven'
+    }
+
+    maven {
+        name 'blamejared'
+        url 'https://maven.blamejared.com'
+    }
+
+    maven {
+        name 'curseforge'
+        url 'https://www.cursemaven.com/'
+    }
+
+    maven {
+        name 'jei'
+        url 'https://dvs1.progwml6.com/files/maven'
+    }
+
+    maven {
+        name 'ic2'
+        url 'http://maven.ic2.player.to/'
+    }
+
+}
+
+dependencies {
+    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.674"
+    deobfCompile "net.industrial-craft:industrialcraft-2:2.8.170-ex112"
+    deobfCompile "curse.maven:Requious-Frakto-336748:3218640" // 0.12
+    deobfCompile "mezz.jei:jei_1.12.2:4.16.1.302"
+    deobfCompile "zone.rong:mixinbooter:4.2"
+}
+
+processResources {
+
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+
+}
+
+runClient {
+    args '--username', 'dev_player'
+}
+
+mixin {
+    add sourceSets.main, "mixins.ic2no.refmap.json"
+}

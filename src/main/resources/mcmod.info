@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ic2-no",
+  "name": "IC2-No",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["superhelo"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
