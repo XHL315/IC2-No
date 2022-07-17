@@ -57,13 +57,13 @@ addFluidSlot(6, 3, ComponentFace.front(), 5000, true, false, "output2");
 
 oilRefineries.setEUSlot(0, 4, ComponentFace.all(), 2500)
       .acceptFE(false)
-      .setGroup("energy");
+      .setGroup("energyInput");
 oilRefineries.setJEIEnergySlot(0, 4, "energyInput", "eu");
 
 oilRefineries.setEUSlot(0, 3, ComponentFace.all(), 10000)
       .acceptFE(false)
       .setAccess(false, true)
-      .setGroup("energyO");
+      .setGroup("energyOutput");
 oilRefineries.setJEIEnergySlot(0, 3, "energyOutput", "eu");
 
 var recipe as AssemblyRecipe = AssemblyRecipe.create(function(container) {
