@@ -2,21 +2,27 @@ package superhelo.ic2no.mixins;
 
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
+import java.util.Objects;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.MinecraftForge;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import requious.block.BlockAssembly;
+import requious.data.AssemblyProcessor;
 import requious.tile.TileEntityAssembly;
 
 @Mixin(value = TileEntityAssembly.class)
 public abstract class MixinTileEntityAssembly extends TileEntity {
+
+    @Shadow(remap = false)
+    AssemblyProcessor processor;
 
     boolean addedToEnet = false;
 
@@ -36,7 +42,7 @@ public abstract class MixinTileEntityAssembly extends TileEntity {
 
     @Inject(method = "update", at = @At(value = "RETURN"))
     private void injectUpdate(CallbackInfo ci) {
-        if (!world.isRemote && !addedToEnet) {
+        if (!world.isRemote && !addedToEnet && Objects.nonNull(processor.getIC2Handler())) {
             addedToEnet = true;
             MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent((TileEntityAssembly) (Object) this));
         }
