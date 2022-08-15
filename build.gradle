@@ -18,7 +18,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'org.spongepowered.mixin'
 
-version = "1.0"
+version = "1.1"
 group = "superhelo.ic2no" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "IC2-No"
 
@@ -78,7 +78,7 @@ repositories {
 
 dependencies {
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.674"
-    deobfCompile "net.industrial-craft:industrialcraft-2:2.8.170-ex112:api"
+    deobfCompile "net.industrial-craft:industrialcraft-2:2.8.222-ex112"
     deobfCompile "curse.maven:Requious-Frakto-336748:3218640" // 0.12
     deobfCompile "mezz.jei:jei_1.12.2:4.16.1.302"
     deobfCompile "zone.rong:mixinbooter:4.2"
